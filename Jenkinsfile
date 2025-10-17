@@ -37,6 +37,23 @@ pipeline{
                 '''
             }
         }
+        stage('docker login'){
+            steps{
+                script{
+                    withCredentials([usernamePassword(credentialsId: 'Docker', passwordVariable: 'DOCKER-PASSWORD', usernameVariable: 'DOCKER-USERNAME')]) 
+                {
+                    sh " echo $DOCKER-PASSWORD | docker login -u DOCKER-USERNAME --password-stdin"
+                }
+
+             
+                }
+            }
+        }
+        stage('push image to docker hub'){
+            steps{
+                sh "docker push $DOCKER_IMG"
+            }
+        }
     }
     
 }
