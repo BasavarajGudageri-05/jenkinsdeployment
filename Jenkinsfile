@@ -4,7 +4,7 @@ pipeline{
         DOCKER_IMG='babugudageri/continues-intigration:1'
     }
     tools{
-        jdk 'jdk-11'
+        jdk 'java-11'
         maven 'maven'
     }
     stages{
