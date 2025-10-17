@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('Git Checkout'){
             steps{
-                url: 'https://github.com/BasavarajGudageri-05/jenkinsdeployment.git', git branch 'master'
+                 git branch:'master', url: 'https://github.com/BasavarajGudageri-05/jenkinsdeployment.git' 
             }
         }
         stage('compile'){
@@ -25,7 +25,7 @@ pipeline{
         }
         stage('docker build'){
             steps{
-                sh 'docker build -t $DOCKER_IMG'
+                sh 'docker build -t $DOCKER_IMG .'
             }
         }
         stage('containerasation'){
@@ -35,6 +35,23 @@ pipeline{
                 docker rm c1 || true
                 docker run -it -d -p 9000:8080 $DOCKER_IMG --name c1
                 '''
+            }
+        }
+        stage('docker login'){
+            steps{
+                script{
+                    withCredentials([usernamePassword(credentialsId: 'Docker', passwordVariable: 'DOCKER-PASSWORD', usernameVariable: 'DOCKER-USERNAME')]) 
+                {
+                    sh " echo $DOCKER-PASSWORD | docker login -u DOCKER-USERNAME --password-stdin"
+                }
+
+             
+                }
+            }
+        }
+        stage('push image to docker hub'){
+            steps{
+                sh "docker push $DOCKER_IMG"
             }
         }
     }
