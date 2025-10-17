@@ -33,7 +33,7 @@ pipeline{
                 sh '''
                 docker stop c1 || true
                 docker rm c1 || true
-                docker run -it -d -p 9000:8080 $DOCKER_IMG --name c1
+                docker run -it -d --name c1 -p 9000:8080 $DOCKER_IMG 
                 '''
             }
         }
