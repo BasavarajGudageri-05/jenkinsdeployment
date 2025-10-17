@@ -25,7 +25,7 @@ pipeline{
         }
         stage('docker build'){
             steps{
-                sh 'docker build -t $DOCKER_IMG'
+                sh 'docker build -t $DOCKER_IMG .'
             }
         }
         stage('containerasation'){
