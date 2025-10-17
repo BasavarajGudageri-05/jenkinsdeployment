@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('Git Checkout'){
             steps{
-                url 'https://github.com/BasavarajGudageri-05/jenkinsdeployment.git', git branch 'master'
+                url: 'https://github.com/BasavarajGudageri-05/jenkinsdeployment.git', git branch: 'master'
             }
         }
         stage('compile'){
